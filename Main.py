@@ -4,8 +4,9 @@ import PySimpleGUI as sG
 #Interface Gráfica
 layout = [
     [sG.Text('Expressão polinomial de uma variável:')],
+    [sG.Text('Exemplo: (4000*x)-2*(x**2)')],
     [sG.Text('f (x) ='), sG.Input(key='polinomio')],
-    [sG.Button('Enviar', bind_return_key=True)], #Atribuindo a tecla de retorno ao botão enviar
+    [sG.Button('Enviar', size=(50,1), bind_return_key=True)], #Atribuindo a tecla de retorno ao botão enviar
     [sG.Output(size=(50,15), key='saida')]
 ]
 #Janela
@@ -14,6 +15,9 @@ janela = sG.Window('Otimizador').layout(layout)
 #Laço para manter a janela aberta
 while True:
     janela.button, janela.values = janela.Read() #Leitura da insersão do usuário
+    #Quando o usuário clicar para fechar a janela
+    if janela.button == sG.WINDOW_CLOSED:
+        break
 
     x = Symbol('x')
     polinomio = janela.values['polinomio']
@@ -41,3 +45,5 @@ while True:
     else:
         print('Polinômio inválido!') #Mensagem de erro
 
+#Fim do programa
+janela.close()
